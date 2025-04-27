@@ -1,0 +1,67 @@
+.analysis-container {
+  width: 100%;
+  padding: 0;
+}
+
+.mode-switch {
+  display: flex;
+  justify-content: flex-end;
+  margin-bottom: 16px;
+}
+
+.analysis-result {
+  margin-top: 24px;
+}
+
+pre {
+  margin: 0;
+  padding: 16px;
+  overflow: auto;
+  font-size: 85%;
+  line-height: 1.45;
+  background-color: #f6f8fa;
+  border-radius: 6px;
+  white-space: pre-wrap;
+  max-height: 400px;
+}
+
+.process-step-content {
+  margin-left: 24px;
+  margin-bottom: 16px;
+}
+
+.step-title {
+  font-weight: bold;
+  margin-bottom: 8px;
+}
+
+.success-step {
+  color: #52c41a;
+}
+
+.error-step {
+  color: #f5222d;
+}
+
+.fixed-code-step {
+  color: #1890ff;
+}
+
+.info-step {
+  color: #faad14;
+}
+
+/* 响应式调整 */
+@media (max-width: 768px) {
+  .analysis-container {
+    padding: 0 8px;
+  }
+}
+
+.ant-card {
+  margin-bottom: 16px;
+}
+
+.ant-typography {
+  white-space: pre-wrap;
+} 

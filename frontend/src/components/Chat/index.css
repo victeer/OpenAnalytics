@@ -1,0 +1,36 @@
+.chat-container {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  padding: 16px;
+}
+
+.chat-messages {
+  flex: 1;
+  overflow-y: auto;
+  margin-bottom: 16px;
+  padding: 16px;
+  background: #fff;
+  border-radius: 8px;
+}
+
+.chat-input {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.chat-buttons {
+  display: flex;
+  justify-content: flex-end;
+  gap: 8px;
+}
+
+.ant-list-item {
+  padding: 12px 0 !important;
+}
+
+.ant-list-item-meta-description {
+  white-space: pre-wrap;
+  word-break: break-word;
+} 

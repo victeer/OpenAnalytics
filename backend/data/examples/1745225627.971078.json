@@ -1,0 +1,352 @@
+{
+  "name": "计算分摊费用",
+  "description": "每个月需要根据手机号的使用通话、流量来做每个手机号的费用分摊。",
+  "tags": [
+    "statistical_analysis"
+  ],
+  "analysisProcess": {
+    "originalFile": {
+      "file_name": "phone_num.xlsx",
+      "data_details": {
+        "file_name": "phone_num.xlsx",
+        "shape": {
+          "rows": 12,
+          "columns": 8
+        },
+        "columns": [
+          "号码",
+          "营业厅组合标准\n(1主卡+2副卡)",
+          "固定套餐\n月",
+          "分摊费用",
+          "套餐内容",
+          "使用人",
+          "通话\r\nM",
+          "流量\r\nG "
+        ],
+        "dtypes": {
+          "号码": "object",
+          "营业厅组合标准\n(1主卡+2副卡)": "object",
+          "固定套餐\n月": "float64",
+          "分摊费用": "float64",
+          "套餐内容": "object",
+          "使用人": "object",
+          "通话\r\nM": "int64",
+          "流量\r\nG ": "float64"
+        },
+        "sample_data": [
+          {
+            "号码": "185****5506",
+            "营业厅组合标准\n(1主卡+2副卡)": "主卡+副卡1",
+            "固定套餐\n月": 139.3,
+            "分摊费用": "",
+            "套餐内容": "1000分钟，60G",
+            "使用人": "刘**",
+            "通话\r\nM": 355,
+            "流量\r\nG ": 58.71
+          },
+          {
+            "号码": "186****9573",
+            "营业厅组合标准\n(1主卡+2副卡)": "",
+            "固定套餐\n月": 10,
+            "分摊费用": "",
+            "套餐内容": "副卡，与主卡共享",
+            "使用人": "孙**",
+            "通话\r\nM": 35,
+            "流量\r\nG ": 3.65
+          },
+          {
+            "号码": "185****5117",
+            "营业厅组合标准\n(1主卡+2副卡)": "",
+            "固定套餐\n月": 10,
+            "分摊费用": "",
+            "套餐内容": "副卡，与主卡共享",
+            "使用人": "景**",
+            "通话\r\nM": 14,
+            "流量\r\nG ": 3.42
+          },
+          {
+            "号码": "185****4181",
+            "营业厅组合标准\n(1主卡+2副卡)": "主卡+副卡2",
+            "固定套餐\n月": 139.3,
+            "分摊费用": "",
+            "套餐内容": "1000分钟，60G",
+            "使用人": "陆**",
+            "通话\r\nM": 417,
+            "流量\r\nG ": 59.94
+          },
+          {
+            "号码": "185****3425",
+            "营业厅组合标准\n(1主卡+2副卡)": "",
+            "固定套餐\n月": 10,
+            "分摊费用": "",
+            "套餐内容": "副卡，与主卡共享",
+            "使用人": "郭**",
+            "通话\r\nM": 0,
+            "流量\r\nG ": 0
+          },
+          {
+            "号码": "185****3860",
+            "营业厅组合标准\n(1主卡+2副卡)": "",
+            "固定套餐\n月": 10,
+            "分摊费用": "",
+            "套餐内容": "副卡，与主卡共享",
+            "使用人": "王**",
+            "通话\r\nM": 0,
+            "流量\r\nG ": 0
+          },
+          {
+            "号码": "185****1145",
+            "营业厅组合标准\n(1主卡+2副卡)": "主卡+副卡3",
+            "固定套餐\n月": 139.3,
+            "分摊费用": "",
+            "套餐内容": "1000分钟，60G",
+            "使用人": "陈**",
+            "通话\r\nM": 91,
+            "流量\r\nG ": 18.59
+          },
+          {
+            "号码": "185****1705",
+            "营业厅组合标准\n(1主卡+2副卡)": "",
+            "固定套餐\n月": 10,
+            "分摊费用": "",
+            "套餐内容": "副卡，与主卡共享",
+            "使用人": "李**",
+            "通话\r\nM": 363,
+            "流量\r\nG ": 38.4
+          },
+          {
+            "号码": "185****9791",
+            "营业厅组合标准\n(1主卡+2副卡)": "",
+            "固定套餐\n月": 10,
+            "分摊费用": "",
+            "套餐内容": "副卡，与主卡共享",
+            "使用人": "赵**",
+            "通话\r\nM": 46,
+            "流量\r\nG ": 0.47
+          },
+          {
+            "号码": "185****9282",
+            "营业厅组合标准\n(1主卡+2副卡)": "主卡+副卡4",
+            "固定套餐\n月": 139.3,
+            "分摊费用": "",
+            "套餐内容": "1000分钟，60G",
+            "使用人": "古*",
+            "通话\r\nM": 462,
+            "流量\r\nG ": 59.02
+          }
+        ]
+      },
+      "saved_file_path": "data/example_files/1745225627.971078_phone_num.xlsx"
+    },
+    "userQuery": "你是一个行政助理，每个月需要根据手机号的使用通话、流量来做每个手机号的费用分摊。\n在一个组合标准内，有一个主卡 两个副卡，计算这个组合内，每个电话的分摊费用，不同的组合分开计算。在计算总费用时，需要把主卡、副卡的套餐费用都计算在内。注意: 在表格中，”主卡+2副卡”是一个组合单元， 一个组合单元为一组，计算费用。\n分摊规则\n1.通话分摊：根据每个手机号的实际通话分钟数占总通话分钟数的比例，分摊套餐费用。\n2.流量分摊：根据每个手机号的实际流量使用量占总流量的比例，分摊套餐费用。\n3.总分摊金额：通话分摊金额 + 流量分摊金额。\n\n计算公式\n假设一个组合单元的套餐总费用为 F，总通话分钟数为 T，总流量为 G，每个手机号的通话分钟数为 ti，流量为 gi：\n通话分摊金额：通话分摊金额i=(ti/T)×0.5×F\n流量分摊金额：流量分摊金额i=(gi/G)×0.5×F\n总分摊金额：总分摊金额i=通话分摊金额i+流量分摊金额i\n\n请根据分摊规则、计算公式，以表头营业厅组合标准（1主卡+2副卡）字段为一组，计算套餐组合内每个手机号的分摊金额，以表格形式输出。\n按照“营业厅组合标准（1主卡+2副卡）“、”手机号“、”总通话“、 ”总流量“、”通话占比“、”流量占比“、”通话分摊费用“、”流量分摊费用“、”总分摊费用”来输出。\n要特别注意的是，一个组合标准内的套餐总费用，是主套餐费用加副卡套餐费用。",
+    "process_steps": [
+      {
+        "type": "analysis_plan",
+        "content": "我们将根据每个组合标准内的主卡和副卡的实际通话分钟数及流量使用情况，按照给定的分摊规则计算每个手机号应承担的费用。具体来说，先算出每个组合单元内所有电话的总通话时长和总流量，然后根据每部手机在该组内的通话时长占比和流量使用占比来分配套餐总费用的一半到通话上，另一半分配到流量上。最后，将这两部分相加得到每个号码总的分摊费用。这些信息将以表格形式展示，包括每个组合标准、对应的手机号码、其通话量、流量使用量、各自的比例以及最终的分摊费用等详细内容。"
+      },
+      {
+        "type": "initial_code",
+        "content": "import pandas as pd\nimport numpy as np\n\n# 填充缺失的组合标准\ndf['营业厅组合标准(1主卡+2副卡)'] = df['营业厅组合标准(1主卡+2副卡)'].fillna(method='ffill')\n\n# 计算每个组合单元内的总通话分钟数和总流量\ngrouped = df.groupby('营业厅组合标准(1主卡+2副卡)')\ntotal_calls = grouped['通话 M'].transform('sum')\ntotal_data = grouped['流量 G'].transform('sum')\n\n# 计算每个组合单元的套餐总费用\ndf['套餐总费用'] = df['固定套餐 月'].groupby(df['营业厅组合标准(1主卡+2副卡)']).transform('sum')\n\n# 计算通话占比和流量占比\ndf['通话占比'] = df['通话 M'] / total_calls\ndf['流量占比'] = df['流量 G'] / total_data\n\n# 计算通话分摊费用和流量分摊费用\ndf['通话分摊费用'] = (df['通话占比'] * 0.5 * df['套餐总费用'])\ndf['流量分摊费用'] = (df['流量占比'] * 0.5 * df['套餐总费用'])\n\n# 计算总分摊费用\ndf['总分摊费用'] = df['通话分摊费用'] + df['流量分摊费用']\n\n# 选择需要的列\nresult = df[['营业厅组合标准(1主卡+2副卡)', '号码', '通话 M', '流量 G', '通话占比', '流量占比', '通话分摊费用', '流量分摊费用', '总分摊费用']]"
+      },
+      {
+        "type": "error",
+        "content": "KeyError: '营业厅组合标准(1主卡+2副卡)'",
+        "traceback": "Traceback (most recent call last):\n  File \"/Users/victor/anaconda3/lib/python3.7/site-packages/pandas/core/indexes/base.py\", line 3361, in get_loc\n    return self._engine.get_loc(casted_key)\n  File \"pandas/_libs/index.pyx\", line 76, in pandas._libs.index.IndexEngine.get_loc\n  File \"pandas/_libs/index.pyx\", line 108, in pandas._libs.index.IndexEngine.get_loc\n  File \"pandas/_libs/hashtable_class_helper.pxi\", line 5198, in pandas._libs.hashtable.PyObjectHashTable.get_item\n  File \"pandas/_libs/hashtable_class_helper.pxi\", line 5206, in pandas._libs.hashtable.PyObjectHashTable.get_item\nKeyError: '营业厅组合标准(1主卡+2副卡)'\n\nThe above exception was the direct cause of the following exception:\n\nTraceback (most recent call last):\n  File \"/Users/victor/Documents/应用/数据分析机器人/backend/app/services/analysis.py\", line 368, in analyze\n    exec(code_obj, code_globals, local_vars)\n  File \"<string>\", line 5, in <module>\n  File \"/Users/victor/anaconda3/lib/python3.7/site-packages/pandas/core/frame.py\", line 3458, in __getitem__\n    indexer = self.columns.get_loc(key)\n  File \"/Users/victor/anaconda3/lib/python3.7/site-packages/pandas/core/indexes/base.py\", line 3363, in get_loc\n    raise KeyError(key) from err\nKeyError: '营业厅组合标准(1主卡+2副卡)'\n",
+        "attempt": 1
+      },
+      {
+        "type": "error_analysis",
+        "content": {
+          "plan": "获取信息",
+          "reason": "从错误信息来看，问题出在`df`中没有名为'营业厅组合标准(1主卡+2副卡)'的列。为了确认这一点以及进一步了解数据框的实际结构（比如有哪些列），我们需要打印出数据框的所有列名。",
+          "code": "print(df.columns)"
+        },
+        "attempt": 1
+      },
+      {
+        "type": "info_code",
+        "content": "print(df.columns)",
+        "attempt": 1
+      },
+      {
+        "type": "info_result",
+        "content": "Index(['号码', '营业厅组合标准\\n(1主卡+2副卡)', '固定套餐\\n月', '分摊费用', '套餐内容', '使用人', '通话\\r\\nM',\n       '流量\\r\\nG '],\n      dtype='object')\n",
+        "attempt": 1
+      },
+      {
+        "type": "fixed_code",
+        "content": "import pandas as pd\nimport numpy as np\n\n# 修正列名\ndf.rename(columns={\n    '营业厅组合标准\\n(1主卡+2副卡)': '营业厅组合标准(1主卡+2副卡)',\n    '固定套餐\\n月': '固定套餐 月',\n    '通话\\r\\nM': '通话 M',\n    '流量\\r\\nG ': '流量 G'\n}, inplace=True)\n\n# 填充缺失的组合标准\ndf['营业厅组合标准(1主卡+2副卡)'] = df['营业厅组合标准(1主卡+2副卡)'].fillna(method='ffill')\n\n# 计算每个组合单元内的总通话分钟数和总流量\ngrouped = df.groupby('营业厅组合标准(1主卡+2副卡)')\ntotal_calls = grouped['通话 M'].transform('sum')\ntotal_data = grouped['流量 G'].transform('sum')\n\n# 计算每个组合单元的套餐总费用\ndf['套餐总费用'] = df['固定套餐 月'].groupby(df['营业厅组合标准(1主卡+2副卡)']).transform('sum')\n\n# 计算通话占比和流量占比\ndf['通话占比'] = df['通话 M'] / total_calls\ndf['流量占比'] = df['流量 G'] / total_data\n\n# 计算通话分摊费用和流量分摊费用\ndf['通话分摊费用'] = (df['通话占比'] * 0.5 * df['套餐总费用'])\ndf['流量分摊费用'] = (df['流量占比'] * 0.5 * df['套餐总费用'])\n\n# 计算总分摊费用\ndf['总分摊费用'] = df['通话分摊费用'] + df['流量分摊费用']\n\n# 选择需要的列\nresult = df[['营业厅组合标准(1主卡+2副卡)', '号码', '通话 M', '流量 G', '通话占比', '流量占比', '通话分摊费用', '流量分摊费用', '总分摊费用']]",
+        "attempt": 2,
+        "reason": "根据提供的信息，可以看到`df`中的列名与代码中使用的列名不一致。具体来说，原始代码中使用了`'营业厅组合标准(1主卡+2副卡)'`作为列名，而实际的列名为`'营业厅组合标准\\n(1主卡+2副卡)'`。此外，还有其他列名也存在换行符和空格的问题。"
+      },
+      {
+        "type": "success",
+        "content": "代码执行成功",
+        "attempt": 3
+      }
+    ],
+    "code": "import pandas as pd\nimport numpy as np\n\n# 修正列名\ndf.rename(columns={\n    '营业厅组合标准\\n(1主卡+2副卡)': '营业厅组合标准(1主卡+2副卡)',\n    '固定套餐\\n月': '固定套餐 月',\n    '通话\\r\\nM': '通话 M',\n    '流量\\r\\nG ': '流量 G'\n}, inplace=True)\n\n# 填充缺失的组合标准\ndf['营业厅组合标准(1主卡+2副卡)'] = df['营业厅组合标准(1主卡+2副卡)'].fillna(method='ffill')\n\n# 计算每个组合单元内的总通话分钟数和总流量\ngrouped = df.groupby('营业厅组合标准(1主卡+2副卡)')\ntotal_calls = grouped['通话 M'].transform('sum')\ntotal_data = grouped['流量 G'].transform('sum')\n\n# 计算每个组合单元的套餐总费用\ndf['套餐总费用'] = df['固定套餐 月'].groupby(df['营业厅组合标准(1主卡+2副卡)']).transform('sum')\n\n# 计算通话占比和流量占比\ndf['通话占比'] = df['通话 M'] / total_calls\ndf['流量占比'] = df['流量 G'] / total_data\n\n# 计算通话分摊费用和流量分摊费用\ndf['通话分摊费用'] = (df['通话占比'] * 0.5 * df['套餐总费用'])\ndf['流量分摊费用'] = (df['流量占比'] * 0.5 * df['套餐总费用'])\n\n# 计算总分摊费用\ndf['总分摊费用'] = df['通话分摊费用'] + df['流量分摊费用']\n\n# 选择需要的列\nresult = df[['营业厅组合标准(1主卡+2副卡)', '号码', '通话 M', '流量 G', '通话占比', '流量占比', '通话分摊费用', '流量分摊费用', '总分摊费用']]",
+    "plan": "我们将根据每个组合标准内的主卡和副卡的实际通话分钟数及流量使用情况，按照给定的分摊规则计算每个手机号应承担的费用。具体来说，先算出每个组合单元内所有电话的总通话时长和总流量，然后根据每部手机在该组内的通话时长占比和流量使用占比来分配套餐总费用的一半到通话上，另一半分配到流量上。最后，将这两部分相加得到每个号码总的分摊费用。这些信息将以表格形式展示，包括每个组合标准、对应的手机号码、其通话量、流量使用量、各自的比例以及最终的分摊费用等详细内容。",
+    "result": {
+      "type": "dataframe",
+      "preview_data": [
+        {
+          "营业厅组合标准(1主卡+2副卡)": "主卡+副卡1",
+          "号码": "185****5506",
+          "通话 M": 355,
+          "流量 G": 58.71,
+          "通话占比": 0.8787128712871287,
+          "流量占比": 0.8925205229553056,
+          "通话分摊费用": 69.9894801980198,
+          "流量分摊费用": 71.0892596533901,
+          "总分摊费用": 141.07873985140992
+        },
+        {
+          "营业厅组合标准(1主卡+2副卡)": "主卡+副卡1",
+          "号码": "186****9573",
+          "通话 M": 35,
+          "流量 G": 3.65,
+          "通话占比": 0.08663366336633663,
+          "流量占比": 0.05548799027059896,
+          "通话分摊费用": 6.900371287128713,
+          "流量分摊费用": 4.419618425053208,
+          "总分摊费用": 11.31998971218192
+        },
+        {
+          "营业厅组合标准(1主卡+2副卡)": "主卡+副卡1",
+          "号码": "185****5117",
+          "通话 M": 14,
+          "流量 G": 3.42,
+          "通话占比": 0.034653465346534656,
+          "流量占比": 0.051991486774095465,
+          "通话分摊费用": 2.7601485148514855,
+          "流量分摊费用": 4.141121921556704,
+          "总分摊费用": 6.90127043640819
+        },
+        {
+          "营业厅组合标准(1主卡+2副卡)": "主卡+副卡2",
+          "号码": "185****4181",
+          "通话 M": 417,
+          "流量 G": 59.94,
+          "通话占比": 1,
+          "流量占比": 1,
+          "通话分摊费用": 79.65,
+          "流量分摊费用": 79.65,
+          "总分摊费用": 159.3
+        },
+        {
+          "营业厅组合标准(1主卡+2副卡)": "主卡+副卡2",
+          "号码": "185****3425",
+          "通话 M": 0,
+          "流量 G": 0,
+          "通话占比": 0,
+          "流量占比": 0,
+          "通话分摊费用": 0,
+          "流量分摊费用": 0,
+          "总分摊费用": 0
+        },
+        {
+          "营业厅组合标准(1主卡+2副卡)": "主卡+副卡2",
+          "号码": "185****3860",
+          "通话 M": 0,
+          "流量 G": 0,
+          "通话占比": 0,
+          "流量占比": 0,
+          "通话分摊费用": 0,
+          "流量分摊费用": 0,
+          "总分摊费用": 0
+        },
+        {
+          "营业厅组合标准(1主卡+2副卡)": "主卡+副卡3",
+          "号码": "185****1145",
+          "通话 M": 91,
+          "流量 G": 18.59,
+          "通话占比": 0.182,
+          "流量占比": 0.3235294117647059,
+          "通话分摊费用": 14.496300000000002,
+          "流量分摊费用": 25.769117647058827,
+          "总分摊费用": 40.265417647058825
+        },
+        {
+          "营业厅组合标准(1主卡+2副卡)": "主卡+副卡3",
+          "号码": "185****1705",
+          "通话 M": 363,
+          "流量 G": 38.4,
+          "通话占比": 0.726,
+          "流量占比": 0.6682909850330665,
+          "通话分摊费用": 57.825900000000004,
+          "流量分摊费用": 53.22937695788375,
+          "总分摊费用": 111.05527695788376
+        },
+        {
+          "营业厅组合标准(1主卡+2副卡)": "主卡+副卡3",
+          "号码": "185****9791",
+          "通话 M": 46,
+          "流量 G": 0.47,
+          "通话占比": 0.092,
+          "流量占比": 0.008179603202227636,
+          "通话分摊费用": 7.327800000000001,
+          "流量分摊费用": 0.6515053950574313,
+          "总分摊费用": 7.979305395057432
+        },
+        {
+          "营业厅组合标准(1主卡+2副卡)": "主卡+副卡4",
+          "号码": "185****9282",
+          "通话 M": 462,
+          "流量 G": 59.02,
+          "通话占比": 1,
+          "流量占比": 1,
+          "通话分摊费用": 79.65,
+          "流量分摊费用": 79.65,
+          "总分摊费用": 159.3
+        },
+        {
+          "营业厅组合标准(1主卡+2副卡)": "主卡+副卡4",
+          "号码": "186****0242",
+          "通话 M": 0,
+          "流量 G": 0,
+          "通话占比": 0,
+          "流量占比": 0,
+          "通话分摊费用": 0,
+          "流量分摊费用": 0,
+          "总分摊费用": 0
+        },
+        {
+          "营业厅组合标准(1主卡+2副卡)": "主卡+副卡4",
+          "号码": "185****6413",
+          "通话 M": 0,
+          "流量 G": 0,
+          "通话占比": 0,
+          "流量占比": 0,
+          "通话分摊费用": 0,
+          "流量分摊费用": 0,
+          "总分摊费用": 0
+        }
+      ],
+      "columns": [
+        "营业厅组合标准(1主卡+2副卡)",
+        "号码",
+        "通话 M",
+        "流量 G",
+        "通话占比",
+        "流量占比",
+        "通话分摊费用",
+        "流量分摊费用",
+        "总分摊费用"
+      ],
+      "total_rows": 12,
+      "download_id": "08aee6b0-ae69-4d4b-9e1b-5d4a89ce93a5"
+    },
+    "errors": [
+      {
+        "type": "error",
+        "content": "KeyError: '营业厅组合标准(1主卡+2副卡)'",
+        "traceback": "Traceback (most recent call last):\n  File \"/Users/victor/anaconda3/lib/python3.7/site-packages/pandas/core/indexes/base.py\", line 3361, in get_loc\n    return self._engine.get_loc(casted_key)\n  File \"pandas/_libs/index.pyx\", line 76, in pandas._libs.index.IndexEngine.get_loc\n  File \"pandas/_libs/index.pyx\", line 108, in pandas._libs.index.IndexEngine.get_loc\n  File \"pandas/_libs/hashtable_class_helper.pxi\", line 5198, in pandas._libs.hashtable.PyObjectHashTable.get_item\n  File \"pandas/_libs/hashtable_class_helper.pxi\", line 5206, in pandas._libs.hashtable.PyObjectHashTable.get_item\nKeyError: '营业厅组合标准(1主卡+2副卡)'\n\nThe above exception was the direct cause of the following exception:\n\nTraceback (most recent call last):\n  File \"/Users/victor/Documents/应用/数据分析机器人/backend/app/services/analysis.py\", line 368, in analyze\n    exec(code_obj, code_globals, local_vars)\n  File \"<string>\", line 5, in <module>\n  File \"/Users/victor/anaconda3/lib/python3.7/site-packages/pandas/core/frame.py\", line 3458, in __getitem__\n    indexer = self.columns.get_loc(key)\n  File \"/Users/victor/anaconda3/lib/python3.7/site-packages/pandas/core/indexes/base.py\", line 3363, in get_loc\n    raise KeyError(key) from err\nKeyError: '营业厅组合标准(1主卡+2副卡)'\n",
+        "attempt": 1
+      }
+    ]
+  },
+  "sessionId": "session_bf44aff9",
+  "id": "1745225627.971078",
+  "createdAt": "2025-04-21T16:53:47.971091"
+}
