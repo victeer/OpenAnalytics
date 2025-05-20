@@ -63,6 +63,12 @@ cd frontend
 npm start
 ```
 
+## nginx 配置
+位置: /etc/nginx/nginx.conf
+nginx 检测 nginx -t 
+修改完配置，重启: nginx -s reload
+
+
 ## 开发指南
 
 详细开发指南请参考 [开发指南.md](docs/开发指南.md)
